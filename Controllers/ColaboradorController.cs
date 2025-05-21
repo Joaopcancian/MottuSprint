@@ -17,7 +17,7 @@ namespace MotoPatioApi.Controllers
             await _context.Colaboradores.ToListAsync();
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Colaborador>> GetById(int id)
+        public async Task<ActionResult<Colaborador>> GetById(decimal id)
         {
             var item = await _context.Colaboradores.FindAsync(id);
             return item == null ? NotFound() : Ok(item);
@@ -32,7 +32,7 @@ namespace MotoPatioApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, Colaborador item)
+        public async Task<ActionResult> Update(decimal id, Colaborador item)
         {
             if (id != item.Id) return BadRequest();
             _context.Entry(item).State = EntityState.Modified;
@@ -41,7 +41,7 @@ namespace MotoPatioApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(decimal id)
         {
             var item = await _context.Colaboradores.FindAsync(id);
             if (item == null) return NotFound();

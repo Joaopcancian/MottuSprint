@@ -17,7 +17,7 @@ namespace MotoPatioApi.Controllers
             await _context.Monitoramentos.ToListAsync();
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Monitoramento>> GetById(int id)
+        public async Task<ActionResult<Monitoramento>> GetById(decimal id)
         {
             var item = await _context.Monitoramentos.FindAsync(id);
             return item == null ? NotFound() : Ok(item);
@@ -32,7 +32,7 @@ namespace MotoPatioApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, Monitoramento item)
+        public async Task<ActionResult> Update(decimal id, Monitoramento item)
         {
             if (id != item.Id) return BadRequest();
             _context.Entry(item).State = EntityState.Modified;
@@ -41,7 +41,7 @@ namespace MotoPatioApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(decimal id)
         {
             var item = await _context.Monitoramentos.FindAsync(id);
             if (item == null) return NotFound();
