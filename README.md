@@ -126,7 +126,16 @@ Cada entidade possui os seguintes endpoints:
 ```bash
 git clone https://github.com/Joaopcancian/MottuSprint.git
 cd MottuPatio
-
+```
+2. Configure a string de conexão no appsettings.json:
+```
+"ConnectionStrings": {
+  "OracleConnection": "User Id=rm555341;Password=070705;Data Source=oracle.fiap.com.br:1521/orcl"
+}
+```
+3. Acesse o swagger:
+- http://localhost:5178/swagger/index.html
+  
 Autores
 João Pedro Cancian Corrêa – RM: 555341
 Giulia Camillo - RM: 554473
