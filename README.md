@@ -1,73 +1,131 @@
-# MottuPatio
+# 🚀 MottuPatio
 
-API RESTful desenvolvida com ASP.NET Core para gerenciamento de pátios de motos da Mottu, incluindo controle de entrada, triagem, monitoramento e gestão de colaboradores.
+API RESTful desenvolvida com ASP.NET Core para o gerenciamento dos pátios de motos da Mottu, incluindo controle de entrada, triagem, monitoramento e gestão de colaboradores.
 
-## Tecnologias Utilizadas
+---
+
+## 🧾 Descrição do Projeto
+
+A Mottu enfrenta desafios na gestão de suas motos dentro do pátio, como imprecisões na localização, atrasos e ineficiência operacional. Este sistema propõe uma solução baseada em:
+
+- **Classificação por cores**
+- **Visão computacional**
+- **Monitoramento em tempo real**
+
+O objetivo é otimizar a organização e o controle das motos.
+
+---
+
+## 🎯 Objetivos
+
+- Organizar as motos por categorias de prioridade
+- Reduzir atrasos no atendimento e manutenção
+- Aumentar a eficiência na gestão de localização
+- Disponibilizar dados em tempo real sobre status e tempo de permanência
+
+---
+
+## 🧩 Solução
+
+### Classificação por Cores
+
+Cada moto recebe um adesivo com uma cor após triagem:
+
+| Cor     | Classificação             | Descrição                             | Tempo Limite        |
+|---------|---------------------------|----------------------------------------|---------------------|
+| Verde   | Pronta para uso           | Moto liberada para entrega             | Sem limite          |
+| Amarelo | Reparos rápidos           | Troca de pneus, óleo, ajustes leves    | 15 minutos          |
+| Vermelho| Reparos graves            | Problemas críticos (motor, elétrica)   | Variável            |
+| Roxo    | Administrativos           | Pendências legais, sem placa, Detran   | Até resolução       |
+
+### Organização do Pátio
+
+- Dividido por áreas conforme a cor de classificação
+- Motos devem ser posicionadas na área correta
+
+### Visão Computacional & Monitoramento
+
+- Câmeras analisam adesivos e placas
+- O sistema gera alertas se:
+  - Moto estiver fora da área correta
+  - Permanência exceder o limite
+- Leitura de placa retorna:
+  - Problema reportado
+  - Data de entrada
+  - Status
+  - Dados do veículo
+
+---
+
+## 🔁 Fluxo de Funcionamento
+
+1. **Triagem**: Classificação por cor
+2. **Alocação**: Moto posicionada na área correspondente
+3. **Monitoramento**:
+   - Validação de posição via câmera
+   - Geração de alerta se necessário
+4. **Consulta**:
+   - Leitura de placa exibe dados completos da moto
+
+---
+
+## 🧪 Tecnologias Utilizadas
 
 - ASP.NET Core 7.0
 - Entity Framework Core
 - Oracle Database
-- Swagger
 - Oracle.ManagedDataAccess
 - Oracle.EntityFrameworkCore
+- Swagger (OpenAPI)
 
 ---
 
-## Funcionalidades
+## ⚙️ Funcionalidades
 
-A API oferece um CRUD completo para as seguintes entidades:
+A API oferece CRUD completo para:
 
-- Cadastro, listagem, atualização e remoção de:
-  - Motos
-  - Triagens
-  - Monitoramentos
-  - Áreas do Pátio
-  - Colaboradores
-- Relacionamento entre motos e suas áreas, status e histórico de triagens
-- Documentação da API com Swagger (OpenAPI)
+- **Motos**
+- **Triagens**
+- **Monitoramentos**
+- **Áreas do Pátio**
+- **Colaboradores**
 
----
-
-## Estrutura de Endpoints
-
-Cada entidade possui rotas para:
-
-- `GET /[entidade]` – Listar todos os registros
-- `GET /[entidade]/{id}` – Obter registro por ID
-- `POST /[entidade]` – Criar novo registro
-- `PUT /[entidade]/{id}` – Atualizar registro existente
-- `DELETE /[entidade]/{id}` – Remover registro
+Outras funcionalidades:
+- Relacionamentos entre entidades
+- Validações automáticas
+- Integração com Oracle
+- Interface de testes via Swagger
 
 ---
 
-## Como Executar o Projeto
+## 🔗 Endpoints
 
-### Requisitos
+Cada entidade possui os seguintes endpoints:
+
+- `GET /[entidade]` – Lista todos os registros
+- `GET /[entidade]/{id}` – Retorna um registro específico
+- `POST /[entidade]` – Cria um novo registro
+- `PUT /[entidade]/{id}` – Atualiza um registro
+- `DELETE /[entidade]/{id}` – Remove um registro
+
+---
+
+## ▶️ Como Executar o Projeto
+
+### Pré-requisitos
 
 - [.NET 7.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
-- Oracle Database
+- Oracle Database (FIAP ou local)
 - Oracle SQL Developer
-- VS Code ou Visual Studio
+- Visual Studio ou VS Code
 
 ### Passos
 
 1. Clone o repositório:
 
+```bash
 git clone https://github.com/Joaopcancian/MottuSprint.git
 cd MottuPatio
-
-2. Configure a connection string Oracle no appsettings.json:
-
-"ConnectionStrings": {
-  "OracleConnection": "User Id=SEU_USUARIO;Password=SUA_SENHA;Data Source=oracle.fiap.com.br:1521/orcl"
-}
---- Substituições do código
-SEU_USUARIO = rm555341
-SUA_SENHA = 070705
-
-3. Execute a aplicação no seu VS Code ou Visual Studio
-4. Acesse a documentação Swagger:
-Copie e cole o link no seu navegador: http://localhost:5178/swagger/index.html
 
 Autores
 João Pedro Cancian Corrêa – RM: 555341
