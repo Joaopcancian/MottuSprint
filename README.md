@@ -133,6 +133,8 @@ cd MottuPatio
   "OracleConnection": "User Id=rm555341;Password=070705;Data Source=oracle.fiap.com.br:1521/orcl"
 }
 ```
+▶️ Execute o projeto no seu Visual Studio ou VS Code
+
 3. Acesse o swagger:
 - http://localhost:5178/swagger/index.html
   
