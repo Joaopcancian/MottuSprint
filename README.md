@@ -137,7 +137,72 @@ cd MottuPatio
 
 3. Acesse o swagger:
 - http://localhost:5178/swagger/index.html
-  
+COMANDOS DO VIDEO DEVOPS:
+```
+$RG = "rg-mottu"
+$VM_NAME = "vm-mottu"
+$LOCATION = "brazilsouth"
+$IMAGE = "Ubuntu2204"
+$USER = "joao"
+$VM_SIZE = "Standard_B1s"
+$PASSWORD = "SenhaForte123!"
+$NSG = "vm-mottuNSG"
+
+az group create --name rg-mottu --location brazilsouth
+
+az vm create `
+  --resource-group $RG `
+  --name $VM_NAME `
+  --image $IMAGE `
+  --admin-username $USER `
+  --admin-password $PASSWORD `
+  --authentication-type password `
+  --size $VM_SIZE
+
+ssh joao@<NOVO_IP>
+
+# Porta 80 - prioridade 1001
+az network nsg rule create `
+  --resource-group $RG `
+  --nsg-name $NSG `
+  --name "Allow-Port-80" `
+  --priority 1001 `
+  --direction Inbound `
+  --access Allow `
+  --protocol Tcp `
+  --destination-port-range 80 `
+  --source-address-prefixes '*' `
+  --destination-address-prefixes '*'
+
+# Porta 8080 - prioridade 1002
+az network nsg rule create `
+  --resource-group $RG `
+  --nsg-name $NSG `
+  --name "Allow-Port-8080" `
+  --priority 1002 `
+  --direction Inbound `
+  --access Allow `
+  --protocol Tcp `
+  --destination-port-range 8080 `
+  --source-address-prefixes '*' `
+  --destination-address-prefixes '*'
+
+scp .\install_docker.sh joao@<IP>:/tmp
+
+scp -r `
+  "C:\Users\zsnow\Desktop\MottuPatio\Controllers" `
+  "C:\Users\zsnow\Desktop\MottuPatio\Models" `
+  "C:\Users\zsnow\Desktop\MottuPatio\Data" `
+  "C:\Users\zsnow\Desktop\MottuPatio\Program.cs" `
+  "C:\Users\zsnow\Desktop\MottuPatio\MottuPatio.csproj" `
+  "C:\Users\zsnow\Desktop\MottuPatio\appsettings.json" `
+  joao@<IP>:/home/joao/mottu
+
+cd /home/joao/mottu
+docker build -t mottu-patio .
+http://<IP>:8080/swagger/index.html
+
+```
 Autores
 João Pedro Cancian Corrêa – RM: 555341
 Giulia Camillo - RM: 554473
