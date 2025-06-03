@@ -1,29 +1,32 @@
 using MotoPatioApi.Data;
 using Oracle.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ?? Força escutar na porta 8080 (funciona dentro do container)
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8080); // <-- ponto chave!
+});
 
+// Add services
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection")));
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Ambiente de dev = Swagger ativado
+if (app.Environment.IsDevelopment() || true) // <-- deixa sempre ativo
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
+// app.UseHttpsRedirection(); ? REMOVA HTTPS para não dar erro no Docker
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
