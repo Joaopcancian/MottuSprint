@@ -137,7 +137,8 @@ cd MottuPatio
 
 3. Acesse o swagger:
 - http://localhost:5178/swagger/index.html
-COMANDOS DO VIDEO DEVOPS:
+
+-COMANDOS DO VIDEO DEVOPS:
 ```
 $RG = "rg-mottu"
 $VM_NAME = "vm-mottu"
